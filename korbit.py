@@ -19,10 +19,14 @@ class Simulation(Turtle):
     '''
 
 
-    def __init__(self, m, M, E, L):
+    def __init__(self, m, M, E, L, color):
         super(Simulation, self).__init__(visible=False)
 
-        self.e = 1 + 2 * E * L**2 / (G**2 * M**2 * m**3)
+        self.pencolor(color)
+
+        print(1 + 2 * E * L**2 / (G**2 * M**2 * m**3))
+
+        self.e = np.sqrt(1 + 2 * E * L**2 / (G**2 * M**2 * m**3))
         self.r0 = L**2 / (G * M * m**2)
 
         self.r = 0.0
@@ -40,8 +44,6 @@ class Simulation(Turtle):
         self.penup()
         self.radians()
 
-        self.pencolor(0, 255, 186)
-
         while 1:
             self.update_parameters()
 
@@ -50,20 +52,33 @@ class Simulation(Turtle):
             self.dot(2, (0, 255, 186))
 
 
+def run(planets):
+    while 1:
+        for p in planets:
+            p.update_parameters()
+            p.update_position()
+
+            p.dot(2)
+
 def main():
     radians()
     colormode(255)
 
-    screen = Screen()
-    screen.bgcolor('black')
+    # screen = Screen()
+    # screen.bgcolor('black')
+    #
+    # m = screen.numinput('Korbit', 'Enter the planet mass(kg): ')
+    # M = screen.numinput('Korbit', 'Enter the central body mass(kg): ')
+    # E = screen.numinput('Korbit', 'Enter the mechanical energy(J): ')
+    # L = screen.numinput('Korbit', 'Enter the angular momentum(Js): ')
+    #
+    # sim = Simulation(m, M, E, L, (0, 255, 186))
+    # sim.run()
 
-    m = screen.numinput('Korbit', 'Enter the planet mass(kg): ')
-    M = screen.numinput('Korbit', 'Enter the central body mass(kg): ')
-    E = screen.numinput('Korbit', 'Enter the mechanical energy(J): ')
-    L = screen.numinput('Korbit', 'Enter the angular momentum(Js): ')
+    earth = Simulation(6e24, 2e30, -2.6e33, 2.6e40, (0, 0, 255))
+    venus = Simulation(4.9e24, 2e30, -3.05e33, 7.4e39, (255, 0, 0))
 
-    sim = Simulation(m, M, E, L)
-    sim.run()
+    run([earth, venus])
 
 
 if __name__ == '__main__':
