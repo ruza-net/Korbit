@@ -15,7 +15,7 @@ dphi = 0.05 * 1 / np.pi
 class Simulation(Turtle):
     '''
     Draws the orbit based on the parameters
-    - mechanical energy, radius, and angular momentum.
+    - mechanical energy, masses, and angular momentum.
     '''
 
 
@@ -57,19 +57,13 @@ def main():
     screen = Screen()
     screen.bgcolor('black')
 
-    def start(x = None, y = None):
-        m = screen.numinput('Korbit', 'Enter the planet mass(kg): ')
-        M = screen.numinput('Korbit', 'Enter the central body mass(kg): ')
-        E = screen.numinput('Korbit', 'Enter the mechanical energy(J): ')
-        L = screen.numinput('Korbit', 'Enter the angular momentum(Js): ')
+    m = screen.numinput('Korbit', 'Enter the planet mass(kg): ')
+    M = screen.numinput('Korbit', 'Enter the central body mass(kg): ')
+    E = screen.numinput('Korbit', 'Enter the mechanical energy(J): ')
+    L = screen.numinput('Korbit', 'Enter the angular momentum(Js): ')
 
-        sim = Simulation(m, M, E, L)
-        sim.run()
-
-    start()
-
-    screen.screenonclick(start)
-    mainloop()
+    sim = Simulation(m, M, E, L)
+    sim.run()
 
 
 if __name__ == '__main__':
